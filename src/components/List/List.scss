@@ -1,0 +1,74 @@
+@import '../../colors';
+
+.list {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    &-close {
+        $self: &;
+        position: absolute;
+
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: $main_color;
+        background-color: transparent;
+        border: none;
+        right: 17px;
+        opacity: 0;
+        width: 10px;
+        height: 10px;
+        
+
+    }
+    li {
+        margin-bottom: 5px;
+        a {
+            padding: 11px 0;
+            &:hover .list-close {
+                opacity: 0.8;
+                &:hover {
+                    opacity: 1;
+                }
+            }
+
+            min-width: 190px;
+            color: $main_color;
+            padding-left: 50px;
+            text-decoration: none;
+            border-radius: 8px; 
+            position: relative;
+            display: inline-block;
+            &:hover {
+                background-color: #000;
+            }
+            svg {
+                position: absolute;
+                left: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            &.active {
+                background-color: #000;
+            }
+        }
+    }
+    .add-list__btn {
+        color: #828282;
+        transition: 0.15s ease-in-out;
+        svg {
+            path {
+                stroke: #828282;
+                transition: 0.15s ease-in-out;
+            }
+        }
+        &:hover {
+            color: lighten(#828282, 15);
+            background-color: transparent;
+            svg {
+                path {
+                    stroke: lighten(#828282, 15);
+                }
+            }
+        }
+    }
+}
