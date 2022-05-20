@@ -26,3 +26,23 @@ body {
 ul {
   list-style-type: none;
 }
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  &-list {
+    margin-right: 70px;
+  }
+}
+
+.empty {
+  font-size: 32px;
+  opacity: 0.5;
+  margin: 0;
+  text-align: center;
+}
+
+.loading {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}

@@ -3,6 +3,20 @@
 .list {
     font-size: 1.5rem;
     margin-bottom: 40px;
+    &__naming {
+        display: inline-block;
+        text-overflow: ellipsis;
+        overflow: hidden; 
+        width: 130px; 
+        white-space: nowrap;
+    }
+    &-info {
+        display: flex;
+        flex-direction: column;
+        margin-right: 40px;
+        flex-grow: 1;
+        
+    }
     &-close {
         $self: &;
         position: absolute;
@@ -31,19 +45,20 @@
                 }
             }
 
-            min-width: 190px;
             color: $main_color;
             padding-left: 50px;
+    
             text-decoration: none;
             border-radius: 8px; 
             position: relative;
             display: inline-block;
+            padding-right: 35px;
             &:hover {
                 background-color: #000;
             }
             svg {
                 position: absolute;
-                left: 15px;
+                left: 10px;
                 top: 50%;
                 transform: translateY(-50%);
             }
@@ -56,6 +71,7 @@
         color: #828282;
         transition: 0.15s ease-in-out;
         svg {
+            left: 17px;
             path {
                 stroke: #828282;
                 transition: 0.15s ease-in-out;

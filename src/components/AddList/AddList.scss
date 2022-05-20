@@ -1,14 +1,14 @@
 @import '../../colors';
 
 .add-list {
+    position: relative;
     &__menu {
         background-color: #111;
         padding: 20px;
-        max-width: 235px;
-        width: 100%;
         border-radius: 7px;
-        position: relative;
-        top: -35px;
+        position: absolute;
+        top: 55px;
+
         left: 11px;
         img {
             position: absolute;

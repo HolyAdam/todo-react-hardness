@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import classNames from 'classnames';
 
 import List from "../List/List";
@@ -7,11 +7,19 @@ import './AddList.scss'
 import closeListImg from '../../assets/img/close_list.svg'
 import Badge from "../Badge/Badge";
 
-const AddList = ({ colors, onAdd }) => {
+const AddList = ({ colors, onAdd, id, isLoading }) => {
+
+
 
   const [visiblePopupColor, setVisiblePopupColor] = useState(false)
-  const [activeColor, setActiveColor] = useState(colors[0].id)
+  const [activeColor, setActiveColor] = useState(null)
   const [intValue, setIntValue] = useState('')
+  
+  useEffect(() => {
+    if (Array.isArray(colors)) {
+      setActiveColor(colors[0].id)
+    }
+  }, [colors])
 
   const clears = () => {
     setVisiblePopupColor(false)
@@ -19,22 +27,24 @@ const AddList = ({ colors, onAdd }) => {
     setActiveColor(colors[0].id)
   }
 
-  const addListHandler = () => {
+  const addListHandler = async () => {
     if (!intValue.trim()) {
       alert('Поле не может быть пустым')
       return
     }
 
+    const objColor = colors.find(color => color.id === activeColor)
     
     const obj = {
       name: intValue,
       colorId: activeColor,
-      id: Date.now()
+      tasks: new Array(),
+      colorInfo: objColor
     }
 
-    clears()
+    await onAdd(obj)
 
-    onAdd(obj)
+    clears()
 
   }
 
@@ -45,7 +55,10 @@ const AddList = ({ colors, onAdd }) => {
   }
 
     return (
-      <div className="add-list">
+      <>
+        {
+          colors && (
+            <div className="add-list">
         <List onClick={() => setVisiblePopupColor(true)} lists={[
           {
             icon: (
@@ -75,9 +88,9 @@ const AddList = ({ colors, onAdd }) => {
               />
               <ul className="colors">
                 {
-                  colors.map(color => {
+                  colors.map((color, i) => {
                     return (
-                      <li onClick={() => setActiveColor(color.id)}>
+                      <li key={i} onClick={() => setActiveColor(color.id)}>
                         <Badge 
                           activeClassName={classNames({active: activeColor === color.id})} 
                           color={color.name} 
@@ -91,13 +104,16 @@ const AddList = ({ colors, onAdd }) => {
                 className="add-list__goadd" 
                 onClick={addListHandler}
               >
-                Добавить
+                { isLoading ? 'Добавление...' : 'Добавить' }
               </button>
             </div>
           )
         }
 
       </div>
+          )
+        }
+      </>
     )
 }
 

@@ -3,12 +3,52 @@
     {
       "name": "Фронтенд",
       "colorId": 2,
-      "id": 8
+      "id": 8,
+      "tasks": [
+        {
+          "id": 1, 
+          "taskId": 8, 
+          "text": "Купить безалкогольный напиток", 
+          "completed": false
+        },
+        {
+          "id": 2, 
+          "taskId": 8, 
+          "text": "Купить хлеб", 
+          "completed": false
+        },
+        {
+          "id": 3, 
+          "taskId": 8, 
+          "text": "Купить пивчанский", 
+          "completed": false
+        }
+      ]
     },
     {
       "name": "Здоровье",
       "colorId": 3,
-      "id": 9
+      "id": 9,
+      "tasks": [
+        {
+          "id": 1, 
+          "taskId": 9, 
+          "text": "Позаниматься йогой", 
+          "completed": true
+        },
+        {
+          "id": 2, 
+          "taskId": 9, 
+          "text": "Купить таблетки (от аутизма)", 
+          "completed": false
+        },
+        {
+          "id": 3, 
+          "taskId": 9, 
+          "text": "Бросить на прогиб", 
+          "completed": false
+        }
+      ]
     }
   ],
   "colors": [

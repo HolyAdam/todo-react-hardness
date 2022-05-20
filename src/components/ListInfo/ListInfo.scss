@@ -1,26 +1,52 @@
+@import '../../colors';
+
 .listInfo {
-        max-width: 585px;
-        height: 414px;
-        width: 100%;
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        height: 350px;
         background: #000;
+        overflow: auto;
         border-radius: 10px;
-    
+        margin-bottom: 25px;
+        .empty-task {
+            margin-top: 20px;
+            font-size: 20px;
+            opacity: 0.5;
+        }
     &__title-block {
-        display: flex;
-        align-items: center;
         padding: 20px;
-        border-bottom: 2px solid #fff;
 
         .title {
             color: #fff;
             font-weight: 700;
             font-size: 30px;
             line-height: 40px;
+            display: flex;
+            // align-items: center;
+            // border: 1px solid red;
+            display: inline-block;
+            &:hover {
+                svg {
+                    opacity: 0.5;
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+            }
+            
         }
 
-        img {
+        svg {
             margin-left: 12px;
-            transform: translateY(3px);
+            transform: translateY(-1px);
+            cursor: pointer;
+            opacity: 0;
+            transition: 0.2s ease-in-out;
+            path {
+                fill: #fff
+            }
+            
         }
     }
 
@@ -37,6 +63,13 @@
                 padding: 15px 0;
                 border-bottom: 1px solid #fff;
                 position: relative;
+                &:hover {
+                    
+                    .info-icons svg {
+                        opacity: 0.7;
+                        
+                    }
+                }
 
                 &:last-child {
                     border-bottom: unset;
@@ -48,14 +81,150 @@
                     margin-right: 15px;
                 }
 
-                span {
+                .info-icons {
                     position: absolute;
                     right: 0;
 
-                    img {
-                        margin: 0 5px;
+                    svg {
+                        margin-left: 12px;
+                        cursor: pointer;
+                        opacity: 0;
+                        transition: 0.15s ease-in;
+                        opacity: 0;
+                        &:hover {
+                            opacity: 1;
+                        }
+                        path {
+                            fill: #fff;
+                        }
                     }
                 }
+
+                .done {
+                    position: absolute;
+                    left: 5px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    transition: all 0.2s;
+                    opacity: 0;
+                    path {
+                        stroke: #fff
+                    }
+                }
+
+                .checkbox {
+                    display: flex;
+                    align-items: center;
+
+                    &:hover .done {
+                        opacity: 1;
+                    }
+
+                    input:checked + label {
+                        text-decoration: line-through;
+                    }
+
+                    input:checked + label .done {
+                        opacity: 1;
+                        path {
+                            stroke: #000 !important;
+                        }
+                    }
+
+                    
+
+                    
+
+
+                    input {
+                        display: none;
+                    }
+                    label {
+                        display: inline-block;
+                        position: relative;
+                        padding-left: 35px;
+                        user-select: none;
+                        cursor: pointer;
+                        &::before {
+                            content: '';
+                            display: block;
+                            position: absolute;
+                            left: 0;
+                            width: 20px;
+                            height: 20px;
+                            border-radius: 50%;
+                            border: 1px solid aqua;
+                            transition: 0.1s;
+                            
+                        }
+                    }
+                    input:checked ~ label::before {
+                        background: aqua;
+                    }
+
+                    
+
+                    
+                    
+                }
+            }
+        }
+    }
+}
+
+.task-add {
+    margin: 20px 0;
+    form {
+        display: flex;
+        justify-content: space-between;
+        input, button {
+            border-radius: 7px;
+            border: none;
+            font-family: inherit;
+            outline: none;
+            font-size: 14px;
+        }
+        input {
+            flex-basis: 75%;
+            border-radius: 7px;
+            border: none;
+            padding: 10px;
+            font-family: inherit;
+            background-color: #e2e2e2;
+            transition: 0.15s ease-in-out;
+
+            &:focus {
+                background-color: #fff;
+            }
+        }
+        button {
+            flex-basis: 20%;
+
+            cursor: pointer;
+            background-color: $main_color;
+        }
+    }
+    &__title {
+        border: none;
+        background-color: transparent;
+        color: $main_color;
+        font-family: inherit;
+        cursor: pointer;
+        position: relative;
+        padding-left: 27px;
+        font-size: 15px;
+        transition: 0.2s ease-out;
+        &:hover {
+            opacity: 0.8;
+        }
+        svg {
+            position: absolute;
+            left: 0; 
+            top: 50%;
+            transform: translateY(-50%);   
+            width: 17px;
+            path {
+                stroke: $main_color
             }
         }
     }

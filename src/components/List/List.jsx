@@ -1,11 +1,15 @@
 import classNames from 'classnames';
+import { Link } from 'react-router-dom'
 
 import Badge from '../Badge/Badge';
 
 import closeList from '../../assets/img/remove.svg'
 import './List.scss'
+import Loader from '../Loader/Loader';
 
-const List = ({ lists, onClick, activeItemId, isRemovable, removeList }) => {
+const List = ({ lists, onClick, activeItemId, isRemovable, removeList, isNumerable, loadingDeleteElem }) => {
+
+    // console.log(lists)
 
     const deleteList = (id) => {
         const isDelete = window.confirm('Вы действительно хотите удалить список?')
@@ -16,22 +20,22 @@ const List = ({ lists, onClick, activeItemId, isRemovable, removeList }) => {
     }
 
     return (
+        <>
+            { loadingDeleteElem && <Loader /> }
         <ul className='list'>
             {
-               lists.map(list => {
+               lists.map((list, i) => {
 
                    return (
-                       <li>
-                           <a 
-                                className={classNames(list.classElem, 
+                       <li key={i}>
+                        <Link to={list.id ? `/tasks/page-${list.id}` : '/'} className={classNames(list.classElem, 
                                     { active: list.active ? list.active : activeItemId && activeItemId === list.id }
                                 )}
-                                href="#"
-                                onClick={onClick ? () => onClick(list.id) : null}
-                            >
+                                onClick={onClick ? (e) => onClick(list.id, e) : null}
+                                >
                             {list.icon ? list.icon : <Badge color={list.colorInfo.name} />}
-                            <span>
-                                {list.name}
+                            <span className="list__naming">
+                                {list.name} { list.tasks ? `(${list.tasks.length})` : isNumerable ? '(0)' : null }
                             </span>
                             { isRemovable && (
                                 
@@ -42,13 +46,14 @@ const List = ({ lists, onClick, activeItemId, isRemovable, removeList }) => {
                                     onClick={removeList ? () => deleteList(list.id) : null}
                                 />
 
-                            ) }
-                           </a>
+                            )}
+                        </Link>
                        </li>
                    )
                }) 
             }
         </ul>
+        </>
     );
 }
 

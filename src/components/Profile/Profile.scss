@@ -1,0 +1,114 @@
+@import '../../colors';
+
+.profile {
+    &-title {
+        font-size: 36px;
+        span {
+            color: $main_color;
+        }
+    }
+    &-smile {
+        width: 14px;
+        height: 14px;
+        background-color: #c2c2c2;
+        border-radius: 50%;
+    }
+    &-subtitle {
+        color: #9d9d9d;
+        font-size: 1.6rem;
+    }
+    &-top {
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        border-bottom: 2px solid $main_color;
+    }
+    &-action {
+        font-size: 1.4rem;
+        color: $main_color;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: #000;
+        padding: 10px;
+        border-radius: 7px;
+        margin-bottom: 10px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+        &__date {
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            img {
+                max-width: 14px;
+                margin-right: 5px;
+            }
+        }
+        &__left {
+            display: flex;
+            align-items: center;
+            margin-top: 7px;
+            color: #828282
+            
+        }
+        &__right {
+            display: flex;
+            align-items: center;
+            & > div {
+                margin-right: 5px;
+            }
+        }
+        &s {
+            border-bottom: 2px solid $main_color;
+            padding-bottom: 25px;
+            margin-bottom: 20px;
+            &__title {
+                font-size: 1.8rem;
+                margin-bottom: 12px;
+            }
+        }
+    }
+}
+
+.timer__items {
+    display: flex;
+    font-size: 48px;
+  }
+  .timer__item {
+    position: relative;
+    min-width: 60px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-bottom: 15px;
+    text-align: center;
+    position: relative;
+    .mini {
+        position: absolute;
+        font-size: 1.4rem;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0;
+        color: $main_color
+    }
+  }
+  .timer__item::before {
+    content: attr(data-title);
+    display: block;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    font-size: 14px;
+  }
+  .timer__item:not(:last-child)::after {
+    content: ':';
+    position: absolute;
+    right: -15px;
+  }
+
+.deadlined {
+    font-size: 2rem;
+    border-bottom: 1px dashed $main_color;
+    padding-bottom: 7px;
+    margin-bottom: 11px;
+}
