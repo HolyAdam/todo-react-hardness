@@ -13,8 +13,12 @@ const ListInfo = (
 
     const [isTaskNameChanging, setIsTaskNameChanging] = React.useState(false)
 
-
     const currentList = lists.find(list => list.id === listId)
+
+    if (!currentList) {
+        return null
+    }
+
     const HEX = currentList.colorInfo.hex
 
 

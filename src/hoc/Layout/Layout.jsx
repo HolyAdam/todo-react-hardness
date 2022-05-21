@@ -1,16 +1,19 @@
+import classNames from 'classnames'
+import { useState, useEffect } from 'react'
+
 import { AppContext } from '../AppContext'
+
 
 const Layout = ({ children }) => {
 
-    const ss21 = () => {
-        console.log('Потом заюзаю')
-    }
+    const [theme, setTheme] = useState(localStorage.getItem('isThemeDark') === 'true' ? true : false)
 
     return (
         <AppContext.Provider value={{
-            ss21
+            setTheme,
+            theme
         }}>
-            <div className="container-fluid">
+            <div className={classNames("container-fluid", { theme })}>
                 { children }
             </div>
         </AppContext.Provider>

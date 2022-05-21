@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import { Link } from 'react-router-dom'
 
 import Badge from '../Badge/Badge';
 
@@ -28,11 +27,13 @@ const List = ({ lists, onClick, activeItemId, isRemovable, removeList, isNumerab
 
                    return (
                        <li key={i}>
-                        <Link to={list.id ? `/tasks/page-${list.id}` : '/'} className={classNames(list.classElem, 
+                           <a 
+                                className={classNames(list.classElem, 
                                     { active: list.active ? list.active : activeItemId && activeItemId === list.id }
                                 )}
+                                href="#"
                                 onClick={onClick ? (e) => onClick(list.id, e) : null}
-                                >
+                            >
                             {list.icon ? list.icon : <Badge color={list.colorInfo.name} />}
                             <span className="list__naming">
                                 {list.name} { list.tasks ? `(${list.tasks.length})` : isNumerable ? '(0)' : null }
@@ -43,11 +44,14 @@ const List = ({ lists, onClick, activeItemId, isRemovable, removeList, isNumerab
                                     className='list-close' 
                                     src={closeList} 
                                     alt="Иконка закрытия" 
-                                    onClick={removeList ? () => deleteList(list.id) : null}
+                                    onClick={removeList ? (e) => {
+                                        deleteList(list.id)
+                                        // e.stopPropagation()
+                                    } : null}
                                 />
 
-                            )}
-                        </Link>
+                            ) }
+                           </a>
                        </li>
                    )
                }) 

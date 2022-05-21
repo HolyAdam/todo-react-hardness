@@ -10,6 +10,9 @@
     &__profile {
         display: flex;
         align-items: center;
+        .theme {
+            display: flex;
+        }
     }
 
     .theme, .feeling, .settings {

@@ -1,3 +1,5 @@
+@import './colors';
+
 *, *::after, *::before {
   margin: 0;
   padding: 0;
@@ -14,13 +16,49 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #222;
-  color: #fff;
 }
 
 .container-fluid {
   width: 100%;
   padding: 0 17px;
+  min-height: 100vh;
+  background-color: #222;
+  color: #fff;
+  &.theme {
+    background-color: rgb(167, 0, 167);
+    color: #000;
+    .header .settings {
+      color: #000;
+    }
+
+    .profile-subtitle {
+      color: #333;
+    }
+
+    .listInfo__text-block ul li .checkbox label  {
+      color: #fff;
+    }
+
+    .list .add-list__btn {
+      color: #000;
+      &:hover {
+        color: #222;
+        svg path {
+          stroke: #222
+        }
+      }
+      svg path {
+        stroke: #000
+      }
+    }
+
+    .empty-task {
+      color: #fff;
+    }
+    
+
+    
+  }
 }
 
 ul {

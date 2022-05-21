@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 
 import Layout from "./hoc/Layout/Layout";
 import Header from "./components/Header/Header";
@@ -25,8 +25,8 @@ const App = () => {
   const [isTasksLoading, setIsTasksLoading] = React.useState(false)
   const [isListsLoading, setIsListsLoading] = React.useState(false)
   const [isDeletingList, setTsDeletingList] = React.useState(false)
-  
-
+  const location = useLocation()
+  const navigate = useNavigate()
 
   React.useEffect(() => {
 
@@ -67,10 +67,26 @@ const App = () => {
     
   }, [])
 
+  React.useEffect(() => {
+
+
+    const id = location.pathname.split('tasks/')[1]
+
+    if (lists) {
+      const list = lists.find(list => list.id === id) || {}
+      setActiveList(list.id)
+      console.log('aasdasdasda')
+    }
+
+    console.log('useEffect upgraded')
+
+  }, [lists, location.pathname])
+
   const onListClickHandler = (id, e) => {
+    e.preventDefault()
 
     if (!e.target.classList.contains('list-close')) {
-      setActiveList(id)
+      navigate(`/tasks/${id}`) 
     }
   }
 
@@ -109,6 +125,7 @@ const App = () => {
       obj.id = data.name
       setLists(state => [...state, obj])
       setActiveList(obj.id)
+      navigate(`/tasks/${obj.id}`) 
     } catch(e) {
       alert('Добавление списка - ошибка')
     }
@@ -147,14 +164,14 @@ const App = () => {
       return list.id !== id
     })
     
+    setLists(state => [...newList])
 
     
     
     if (activeList === id) {
-      setActiveList(null)
+      // setActiveList(obj.id)
+      navigate('/')
     }
-
-    setLists(state => [...newList])
 
     setTsDeletingList(false)
 
@@ -236,8 +253,6 @@ const App = () => {
 
   }
 
-  // console.log(lists)
-
   return (
     <Layout>
       <Header />
@@ -245,8 +260,8 @@ const App = () => {
         <div className="wrapper-list">
           <List lists={[
             {
-              name: 'Все задачи',
-              active: true,
+              name: 'Все списки',
+              active: location.pathname === '/',
               icon: (
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12.9599 8.1001H7.73995C7.24315 8.1001 7.19995 8.5024 7.19995 9.0001C7.19995 9.4978 7.24315 9.9001 7.73995 9.9001H12.9599C13.4567 9.9001 13.4999 9.4978 13.4999 9.0001C13.4999 8.5024 13.4567 8.1001 12.9599 8.1001ZM14.7599 12.6001H7.73995C7.24315 12.6001 7.19995 13.0024 7.19995 13.5001C7.19995 13.9978 7.24315 14.4001 7.73995 14.4001H14.7599C15.2567 14.4001 15.2999 13.9978 15.2999 13.5001C15.2999 13.0024 15.2567 12.6001 14.7599 12.6001ZM7.73995 5.4001H14.7599C15.2567 5.4001 15.2999 4.9978 15.2999 4.5001C15.2999 4.0024 15.2567 3.6001 14.7599 3.6001H7.73995C7.24315 3.6001 7.19995 4.0024 7.19995 4.5001C7.19995 4.9978 7.24315 5.4001 7.73995 5.4001ZM4.85995 8.1001H3.23995C2.74315 8.1001 2.69995 8.5024 2.69995 9.0001C2.69995 9.4978 2.74315 9.9001 3.23995 9.9001H4.85995C5.35675 9.9001 5.39995 9.4978 5.39995 9.0001C5.39995 8.5024 5.35675 8.1001 4.85995 8.1001ZM4.85995 12.6001H3.23995C2.74315 12.6001 2.69995 13.0024 2.69995 13.5001C2.69995 13.9978 2.74315 14.4001 3.23995 14.4001H4.85995C5.35675 14.4001 5.39995 13.9978 5.39995 13.5001C5.39995 13.0024 5.35675 12.6001 4.85995 12.6001ZM4.85995 3.6001H3.23995C2.74315 3.6001 2.69995 4.0024 2.69995 4.5001C2.69995 4.9978 2.74315 5.4001 3.23995 5.4001H4.85995C5.35675 5.4001 5.39995 4.9978 5.39995 4.5001C5.39995 4.0024 5.35675 3.6001 4.85995 3.6001Z" fill="#44FFD1"/>
@@ -254,7 +269,10 @@ const App = () => {
               )
             },
           ]} 
-            onClick={() => setActiveList(null)}
+          onClick={(_, e) => {  
+            e.preventDefault()
+            navigate('/')          
+          }}
           />
           {Array.isArray(lists) ? (
             <List 
@@ -273,9 +291,6 @@ const App = () => {
           <AddList isLoading={isListsLoading} colors={colors} onAdd={onAddList} />
         </div>
         <div className="list-info">
-        <Routes>
-          <Route path={'/'} element={<p>12</p>} />
-        </Routes>
         { Array.isArray(lists) && activeList ? (
             <ListInfo 
               taskChange={onTaskChange} 

@@ -59,7 +59,10 @@ const AddList = ({ colors, onAdd, id, isLoading }) => {
         {
           colors && (
             <div className="add-list">
-        <List onClick={() => setVisiblePopupColor(true)} lists={[
+        <List onClick={(_, e) => {
+          e.preventDefault()
+          setVisiblePopupColor(true)
+        }} lists={[
           {
             icon: (
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,0 +1,43 @@
+@import '../../../colors';
+
+.naming {
+    position: relative;
+    &-list {
+        position: absolute;
+        background-color: #000;
+        width: 150%;
+        left: -50%;
+        top: 30px;
+        z-index: 4;
+        border-radius: 7px;
+        text-align: right;
+    }
+
+    &-item:first-child .naming-link {
+        // margin-bottom: 0px;
+        border-top-left-radius: 7px;
+        border-top-right-radius: 7px;
+        // padding-bottom: 0;
+    }
+
+    &-item:last-child .naming-link {
+        border-bottom: unset;
+        border-bottom-left-radius: 7px;
+        border-bottom-right-radius: 7px;
+    }
+
+    &-link {
+        $self: &;
+        font-size: 1.4rem;
+        text-decoration: none;
+        color: $main_color;
+        display: block;
+        padding: 7px;
+        border-bottom: 1px dashed $main_color;
+        transition: background-color 0.15s ease-in-out;
+        &:hover {
+            background-color: #333;
+        }
+        
+    }
+}
